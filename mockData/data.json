@@ -1,0 +1,329 @@
+{
+    "program author" : " Kswole",
+    "program name" : " tough workout",
+    "program description" : " a full body workout",
+    "weeks" : [
+
+        {
+          "monday": [
+            {"exercise_name": "Squats",
+            "note": "Great for lower body strength",
+            "reps": 20,
+            "sets": 4,
+            "video_link": "https://www.example.com/squats-video",
+            "rest_time": 45,
+            "status": "notDone"},
+            {
+              "exercise_name": "Plank",
+              "note": "Core stability exercise",
+              "reps": 10,
+              "sets": 3,
+              "video_link": "https://www.example.com/plank-video",
+              "rest_time": 30,
+              "status": "done"
+            },
+            {
+              "exercise_name": "Bicep Curls",
+              "reps": 12,
+              "note": "Isolation exercise for biceps",
+              "video_link": "https://www.example.com/bicep-curls-video",
+              "sets": 3,
+              "status": "notDone",
+              "rest_time": 45
+            }
+          ],
+          "tuesday": null,
+          "wednesday" : [
+            {
+              "exercise_name": "Push-ups",
+              "note": "Classic upper body workout",
+              "reps": 15,
+              "sets": 3,
+              "video_link": "https://www.example.com/push-ups-video",
+              "rest_time": 60,
+              "status": "notDone"
+            },
+            {
+              "exercise_name": "Lunges",
+              "note": "Targets legs and glutes",
+              "reps": 16,
+              "sets": 3,
+              "video_link": "https://www.example.com/lunges-video",
+              "rest_time": 40,
+              "status": "done"
+            },
+            {
+              "exercise_name": "Crunches",
+              "note": "Abdominal muscle workout",
+              "reps": 20,
+              "sets": 4,
+              "video_link": "https://www.example.com/crunches-video",
+              "rest_time": 30,
+              "status": "notDone"
+            }
+          ] ,
+          "thurday":null,
+          "friday" :[ {
+            "exercise_name": "Push-ups",
+            "note": "Classic upper body workout",
+            "reps": 15,
+            "sets": 3,
+            "video_link": "https://www.example.com/push-ups-video",
+            "rest_time": 60,
+            "status": "notDone"
+          },
+          {
+            "exercise_name": "Lunges",
+            "note": "Targets legs and glutes",
+            "reps": 16,
+            "sets": 3,
+            "video_link": "https://www.example.com/lunges-video",
+            "rest_time": 40,
+            "status": "done"
+          },
+          {
+            "exercise_name": "Crunches",
+            "note": "Abdominal muscle workout",
+            "reps": 20,
+            "sets": 4,
+            "video_link": "https://www.example.com/crunches-video",
+            "rest_time": 30,
+            "status": "notDone"
+          }],
+          "saturday": null,
+          "sunday" : null
+        },
+        {
+          "monday": [
+            {
+              "exercise_name": "Squats",
+              "note": "Great for lower body strength",
+              "reps": 20,
+              "sets": 4,
+              "video_link": "https://www.example.com/squats-video",
+              "rest_time": 45,
+              "status": "notDone"
+            },
+            {
+              "exercise_name": "Push-ups",
+              "note": "Classic upper body workout",
+              "reps": 15,
+              "sets": 3,
+              "video_link": "https://www.example.com/push-ups-video",
+              "rest_time": 60,
+              "status": "notDone"
+            },
+            {
+              "exercise_name": "Lunges",
+              "note": "Targets legs and glutes",
+              "reps": 16,
+              "sets": 3,
+              "video_link": "https://www.example.com/lunges-video",
+              "rest_time": 40,
+              "status": "done"
+            }
+          ],
+          "tuesday": null,
+          "wednesday": [
+            {
+              "exercise_name": "Plank",
+              "note": "Core stability exercise",
+              "reps": 10,
+              "sets": 3,
+              "video_link": "https://www.example.com/plank-video",
+              "rest_time": 30,
+              "status": "done"
+            },
+            {
+              "exercise_name": "Bicep Curls",
+              "note": "Isolation exercise for biceps",
+              "reps": 12,
+              "sets": 3,
+              "video_link": "https://www.example.com/bicep-curls-video",
+              "rest_time": 45,
+              "status": "notDone"
+            },
+            {
+              "exercise_name": "Crunches",
+              "note": "Abdominal muscle workout",
+              "reps": 20,
+              "sets": 4,
+              "video_link": "https://www.example.com/crunches-video",
+              "rest_time": 30,
+              "status": "notDone"
+            }
+          ],
+          "thurday": null,
+          "friday": [
+            {
+              "exercise_name": "Deadlifts",
+              "note": "Full-body compound exercise",
+              "reps": 8,
+              "sets": 4,
+              "video_link": "https://www.example.com/deadlifts-video",
+              "rest_time": 90,
+              "status": "done"
+            },
+            {
+              "exercise_name": "Mountain Climbers",
+              "note": "Cardio and core workout",
+              "reps": 15,
+              "sets": 3,
+              "video_link": "https://www.example.com/mountain-climbers-video",
+              "rest_time": 30,
+              "status": "notDone"
+            }
+          ],
+          "saturday": [
+            {
+              "exercise_name": "Pull-ups",
+              "note": "Upper body strength exercise",
+              "reps": 10,
+              "sets": 3,
+              "video_link": "https://www.example.com/pull-ups-video",
+              "rest_time": 45,
+              "status": "notDone"
+            },
+            {
+              "exercise_name": "Russian Twists",
+              "note": "Oblique muscles workout",
+              "reps": 15,
+              "sets": 3,
+              "video_link": "https://www.example.com/russian-twists-video",
+              "rest_time": 30,
+              "status": "done"
+            }
+          ],
+          "sunday": null
+        }
+        ,
+        {
+            "monday": [
+              {
+                "exercise_name": "Bench Press",
+                "note": "Builds upper body strength",
+                "reps": 12,
+                "sets": 3,
+                "video_link": "https://www.example.com/bench-press-video",
+                "rest_time": 60,
+                "status": "notDone"
+              },
+              {
+                "exercise_name": "Leg Press",
+                "note": "Targets quads and hamstrings",
+                "reps": 15,
+                "sets": 4,
+                "video_link": "https://www.example.com/leg-press-video",
+                "rest_time": 45,
+                "status": "done"
+              },
+              {
+                "exercise_name": "Tricep Dips",
+                "note": "Effective for triceps",
+                "reps": 10,
+                "sets": 3,
+                "video_link": "https://www.example.com/tricep-dips-video",
+                "rest_time": 30,
+                "status": "notDone"
+              }
+            ],
+            "tuesday": null,
+            "wednesday": [
+              {
+                "exercise_name": "Shoulder Press",
+                "note": "Targets deltoids",
+                "reps": 12,
+                "sets": 3,
+                "video_link": "https://www.example.com/shoulder-press-video",
+                "rest_time": 45,
+                "status": "done"
+              },
+              {
+                "exercise_name": "Hammer Curls",
+                "note": "Alternate bicep exercise",
+                "reps": 12,
+                "sets": 3,
+                "video_link": "https://www.example.com/hammer-curls-video",
+                "rest_time": 45,
+                "status": "notDone"
+              },
+              {
+                "exercise_name": "Plank",
+                "note": "Core stability exercise",
+                "reps": 10,
+                "sets": 3,
+                "video_link": "https://www.example.com/plank-video",
+                "rest_time": 30,
+                "status": "done"
+              }
+            ],
+            "thurday": null,
+            "friday": [
+              {
+                "exercise_name": "Lat Pulldowns",
+                "note": "Back muscle isolation",
+                "reps": 12,
+                "sets": 3,
+                "video_link": "https://www.example.com/lat-pulldowns-video",
+                "rest_time": 45,
+                "status": "notDone"
+              },
+              {
+                "exercise_name": "Seated Leg Curl",
+                "note": "Targets hamstrings",
+                "reps": 15,
+                "sets": 4,
+                "video_link": "https://www.example.com/seated-leg-curl-video",
+                "rest_time": 45,
+                "status": "done"
+              }
+            ],
+            "saturday": [
+              {
+                "exercise_name": "Dumbbell Rows",
+                "note": "Strengthens mid-back",
+                "reps": 12,
+                "sets": 3,
+                "video_link": "https://www.example.com/dumbbell-rows-video",
+                "rest_time": 45,
+                "status": "done"
+              },
+              {
+                "exercise_name": "Reverse Lunges",
+                "note": "Leg workout with a twist",
+                "reps": 14,
+                "sets": 3,
+                "video_link": "https://www.example.com/reverse-lunges-video",
+                "rest_time": 40,
+                "status": "notDone"
+              },{
+                "exercise_name": "Dumbbell Rows",
+                "note": "Strengthens mid-back",
+                "reps": 12,
+                "sets": 3,
+                "video_link": "https://www.example.com/dumbbell-rows-video",
+                "rest_time": 45,
+                "status": "done"
+              },
+              {
+                "exercise_name": "Reverse Lunges",
+                "note": "Leg workout with a twist",
+                "reps": 14,
+                "sets": 3,
+                "video_link": "https://www.example.com/reverse-lunges-video",
+                "rest_time": 40,
+                "status": "notDone"
+              }
+            ],
+            "sunday": null
+          
+        }
+        
+
+
+
+
+
+    ]
+        
+}
