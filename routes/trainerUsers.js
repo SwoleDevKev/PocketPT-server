@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
 
     // Insert it into our database
     try {
-        await knex('clients').insert(newUser);
+        await knex('trainers').insert(newUser);
         res.status(201).send("Registered successfully");
     } catch (error) {
         console.log(error);
@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Find the user
-    const user = await knex('clients').where({ email: email }).first();
+    const user = await knex('trainers').where({ email: email }).first();
     if (!user) {
         return res.status(400).send("Invalid email");
     }
@@ -85,7 +85,7 @@ router.get('/current', async (req, res) => {
 	try {
 		const decoded = jwt.verify(authToken, process.env.JWT_KEY)
 
-		const user = await knex('clients').where({id: decoded.id}).first();
+		const user = await knex('trainers').where({id: decoded.id}).first();
 		delete user.password;
 		res.json(user)
 
@@ -96,40 +96,32 @@ router.get('/current', async (req, res) => {
 
 
 //Demonstrate using auth on a single route
-router.get("/", authorize, async (req, res)=> {
+router.get("/:id", authorize, async (req, res)=> {
 
-    
+   const {id} = req.params
 
     try {
 		const users = await knex
 		.select("*")
 		.from("clients")
+        .where({ 'trainer_id': id })
 		res.json(users);
 	} catch (error) {
 		res.status(500).json({ message: "Unable to retrieve users data" });
 	}
-}).patch('/:id',async(req, res)=>{
-    const {id} = req.params
-    const {program_id} = req.body
-    try {
-        const rowsUpdated = await knex("clients").where({ id: id }).update('program_id', program_id);
-
-        if (rowsUpdated === 0) {
-            return res.status(404).json({
-              message: `client with ID ${id} not found`
-            });
-          }
-      
-          const updatedClient = await knex("clients").where({ id: id });
-          res.json(updatedClient[0]);
-    } catch (error){
-        res.status(500).json({
-            message: `Unable to update warehouse with ID ${req.params.id}: ${error}`
-          });
-    }
 })
 
+router.get("/", async (req, res)=> {
 
+    try {
+		const users = await knex
+		.select("first_name","id","last_name","trainer_avatar")
+		.from("trainers")
+		res.json(users);
+	} catch (error) {
+		res.status(500).json({ message: "Unable to retrieve trainers data" });
+	}
+})
 
 
 

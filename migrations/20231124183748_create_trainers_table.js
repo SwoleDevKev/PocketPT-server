@@ -9,7 +9,7 @@ exports.up = function(knex) {
         table.string('trainer_avatar');
         table.string('first_name').notNullable();
         table.string('last_name').notNullable();
-        table.string('phone');
+        table.string('phone').notNullable().unique();
         table.string('email').notNullable().unique();
         table.string('password').notNullable();
     });

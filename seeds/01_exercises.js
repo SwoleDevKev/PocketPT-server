@@ -15,7 +15,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
       rest_time: 60,
-      status: 'notDone'
     },
     {
       id: 2,
@@ -25,7 +24,6 @@ exports.seed = async function (knex) {
       sets: 4,
       video_link: 'https://www.youtube.com/watch?v=YaXPRqUwItQ&pp=ygUUc3F1YXRzIGRlbW9uc3RyYXRpb24%3D',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 3,
@@ -35,7 +33,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=pSHjTRCQxIw&pp=ygUFcGxhbms%3D',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 4,
@@ -45,7 +42,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=sAq_ocpRh_I&pp=ygULYmljZXAgY3VybHM%3D',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 5,
@@ -55,7 +51,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=g8-Ge9S0aUw',
       rest_time: 40,
-      status: 'notDone'
     },
     {
       id: 6,
@@ -65,7 +60,6 @@ exports.seed = async function (knex) {
       sets: 4,
       video_link: 'https://www.youtube.com/watch?v=NnVhqMQRvmM',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 7,
@@ -75,7 +69,6 @@ exports.seed = async function (knex) {
       sets: 4,
       video_link: 'https://www.youtube.com/watch?v=0GCPn0VvXLc',
       rest_time: 90,
-      status: 'notDone'
     },
     {
       id: 8,
@@ -85,7 +78,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=kLh-uczlPLg',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 9,
@@ -95,7 +87,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=PHdHnZcbsB8',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 10,
@@ -105,7 +96,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=0V-8kqnPPeM',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 11,
@@ -115,7 +105,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=CjHIKDQ4RQo',
       rest_time: 60,
-      status: 'notDone'
     },
     {
       id: 12,
@@ -125,7 +114,6 @@ exports.seed = async function (knex) {
       sets: 4,
       video_link: 'https://www.youtube.com/watch?v=q4W4_VJbKW0',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 13,
@@ -135,7 +123,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=qrS6aa0aQ9I',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 14,
@@ -145,7 +132,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=GLrn1vVHz24',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 15,
@@ -155,7 +141,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=RIEMoYL_h1Y',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 16,
@@ -165,7 +150,6 @@ exports.seed = async function (knex) {
       sets: 3,
       video_link: 'https://www.youtube.com/watch?v=JGeRYIZdojU',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 17,
@@ -175,7 +159,6 @@ exports.seed = async function (knex) {
       sets: 4,
       video_link: 'https://www.youtube.com/watch?v=ceG0f6ntNcw',
       rest_time: 45,
-      status: 'notDone'
     }
   ]);
 };
