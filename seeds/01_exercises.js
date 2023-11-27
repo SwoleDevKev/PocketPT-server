@@ -13,9 +13,8 @@ exports.seed = async function (knex) {
       note: 'Basic upper body exercise',
       reps: 15,
       sets: 3,
-      video_link: 'https://www.youtube.com/embed/IODxDxX7oi4?si=PbIJEORlcqzPgVjb',
+      video_link: 'https://www.youtube.com/watch?v=IODxDxX7oi4',
       rest_time: 60,
-      status: 'done'
     },
     {
       id: 2,
@@ -23,9 +22,8 @@ exports.seed = async function (knex) {
       note: 'Great for lower body strength',
       reps: 20,
       sets: 4,
-      video_link: 'https://www.youtube.com/embed/l83R5PblSMA?si=8ixPg6W50f4oEkNs',
+      video_link: 'https://www.youtube.com/watch?v=YaXPRqUwItQ&pp=ygUUc3F1YXRzIGRlbW9uc3RyYXRpb24%3D',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 3,
@@ -33,9 +31,8 @@ exports.seed = async function (knex) {
       note: 'Core stability exercise',
       reps: 10,
       sets: 3,
-      video_link: 'https://www.youtube.com/embed/pSHjTRCQxIw?si=yMW6pWSpUzsWzkBo',
+      video_link: 'https://www.youtube.com/watch?v=pSHjTRCQxIw&pp=ygUFcGxhbms%3D',
       rest_time: 30,
-      status: 'done'
     },
     {
       id: 4,
@@ -43,9 +40,8 @@ exports.seed = async function (knex) {
       note: 'Isolation exercise for biceps',
       reps: 12,
       sets: 3,
-      video_link: 'https://www.youtube.com/embed/sAq_ocpRh_I?si=9gHb_rJLecf7o9pr',
+      video_link: 'https://www.youtube.com/watch?v=sAq_ocpRh_I&pp=ygULYmljZXAgY3VybHM%3D',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 5,
@@ -53,9 +49,8 @@ exports.seed = async function (knex) {
       note: 'Targets legs and glutes',
       reps: 16,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_lunges_video_id',
+      video_link: 'https://www.youtube.com/watch?v=g8-Ge9S0aUw',
       rest_time: 40,
-      status: 'done'
     },
     {
       id: 6,
@@ -63,9 +58,8 @@ exports.seed = async function (knex) {
       note: 'Abdominal muscle workout',
       reps: 20,
       sets: 4,
-      video_link: 'https://www.youtube.com/watch?v=your_crunches_video_id',
+      video_link: 'https://www.youtube.com/watch?v=NnVhqMQRvmM',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 7,
@@ -73,9 +67,8 @@ exports.seed = async function (knex) {
       note: 'Full-body compound exercise',
       reps: 8,
       sets: 4,
-      video_link: 'https://www.youtube.com/watch?v=your_deadlifts_video_id',
+      video_link: 'https://www.youtube.com/watch?v=0GCPn0VvXLc',
       rest_time: 90,
-      status: 'done'
     },
     {
       id: 8,
@@ -83,9 +76,8 @@ exports.seed = async function (knex) {
       note: 'Cardio and core workout',
       reps: 15,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_mountain_climbers_video_id',
+      video_link: 'https://www.youtube.com/watch?v=kLh-uczlPLg',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 9,
@@ -93,9 +85,8 @@ exports.seed = async function (knex) {
       note: 'Upper body strength exercise',
       reps: 10,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_pull_ups_video_id',
+      video_link: 'https://www.youtube.com/watch?v=PHdHnZcbsB8',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 10,
@@ -103,9 +94,8 @@ exports.seed = async function (knex) {
       note: 'Oblique muscles workout',
       reps: 15,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_russian_twists_video_id',
+      video_link: 'https://www.youtube.com/watch?v=0V-8kqnPPeM',
       rest_time: 30,
-      status: 'done'
     },
     {
       id: 11,
@@ -113,9 +103,8 @@ exports.seed = async function (knex) {
       note: 'Builds upper body strength',
       reps: 12,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_bench_press_video_id',
+      video_link: 'https://www.youtube.com/watch?v=CjHIKDQ4RQo',
       rest_time: 60,
-      status: 'notDone'
     },
     {
       id: 12,
@@ -123,9 +112,8 @@ exports.seed = async function (knex) {
       note: 'Targets quads and hamstrings',
       reps: 15,
       sets: 4,
-      video_link: 'https://www.youtube.com/watch?v=your_leg_press_video_id',
+      video_link: 'https://www.youtube.com/watch?v=q4W4_VJbKW0',
       rest_time: 45,
-      status: 'done'
     },
     {
       id: 13,
@@ -133,9 +121,8 @@ exports.seed = async function (knex) {
       note: 'Effective for triceps',
       reps: 10,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_tricep_dips_video_id',
+      video_link: 'https://www.youtube.com/watch?v=qrS6aa0aQ9I',
       rest_time: 30,
-      status: 'notDone'
     },
     {
       id: 14,
@@ -143,9 +130,8 @@ exports.seed = async function (knex) {
       note: 'Targets deltoids',
       reps: 12,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_shoulder_press_video_id',
+      video_link: 'https://www.youtube.com/watch?v=GLrn1vVHz24',
       rest_time: 45,
-      status: 'done'
     },
     {
       id: 15,
@@ -153,9 +139,8 @@ exports.seed = async function (knex) {
       note: 'Alternate bicep exercise',
       reps: 12,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_hammer_curls_video_id',
+      video_link: 'https://www.youtube.com/watch?v=RIEMoYL_h1Y',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 16,
@@ -163,9 +148,8 @@ exports.seed = async function (knex) {
       note: 'Back muscle isolation',
       reps: 12,
       sets: 3,
-      video_link: 'https://www.youtube.com/watch?v=your_lat_pulldowns_video_id',
+      video_link: 'https://www.youtube.com/watch?v=JGeRYIZdojU',
       rest_time: 45,
-      status: 'notDone'
     },
     {
       id: 17,
@@ -173,9 +157,8 @@ exports.seed = async function (knex) {
       note: 'Targets hamstrings',
       reps: 15,
       sets: 4,
-      video_link: 'https://www.youtube.com/watch?v=your_seated_leg_curl_video_id',
+      video_link: 'https://www.youtube.com/watch?v=ceG0f6ntNcw',
       rest_time: 45,
-      status: 'done'
     }
   ]);
 };

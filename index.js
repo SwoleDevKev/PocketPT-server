@@ -6,6 +6,8 @@ const programRoutes = require('./routes/program-routes')
 const exerciseRoutes = require('./routes/exercise-routes');
 const mockDataRoutes = require('./routes/mockdata-routes')
 const workoutRoutes = require('./routes/workout-routes')
+const userRoutes = require("./routes/users");
+const trainerUserRoutes = require("./routes/trainerUsers")
 
 const app = express();
 const PORT = process.env.PORT || 8083;
@@ -13,10 +15,13 @@ const PORT = process.env.PORT || 8083;
 app.use(cors())
 app.use(express.json());
 
+app.use("/api/clients", userRoutes)
+app.use("/api/trainers", trainerUserRoutes)
 app.use('/api/mockData' ,mockDataRoutes)
 app.use('/api/programs', programRoutes);
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/exercises', exerciseRoutes);
+
 
 
 
@@ -33,7 +38,7 @@ app.use('/api/exercises', exerciseRoutes);
         .where({ 'program_id': 1 })
         res.json( joined);
     } catch(error){
-        
+
     }
     
   });
