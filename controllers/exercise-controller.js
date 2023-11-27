@@ -2,9 +2,8 @@ const knex = require('knex')(require('../knexfile'));
 
 const index = async (_req, res) => {
   try {
-    const data = await knex('inventories')
-      .join('warehouses', 'inventories.warehouse_id', '=', 'warehouses.id')
-      .select('inventories.*', 'warehouses.warehouse_name');
+    const data = await knex('exercises')
+      .select('*');
     res.status(200).json(data);
   } catch (error) {
     res.status(400).send(`Error retrieving inventory: ${error}`)

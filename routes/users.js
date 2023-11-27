@@ -8,9 +8,9 @@ const authorize = require('../middleware/authorize');
 // - Creates a new user.
 // - Expected body: { first_name, last_name, phone, address, email, password }
 router.post("/register", async (req, res) => {
-    const { first_name, last_name, phone, email, password } = req.body;
+    const { first_name, last_name, phone, email, password, trainer_id } = req.body;
     
-    if (!first_name || !last_name || !email || !password) {
+    if (!first_name || !last_name || !email || !password || !trainer_id) {
         return res.status(400).json("Please enter the required fields.");
     }
 
@@ -22,6 +22,7 @@ router.post("/register", async (req, res) => {
         last_name,
         phone,
         email,
+        trainer_id,
         password: hashedPassword
     };
     console.log('made it this far');

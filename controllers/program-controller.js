@@ -1,5 +1,19 @@
 const knex = require('knex')(require('../knexfile'));
 
+
+const getWeeklyProgram = async (req, res) => {
+    
+    try{
+        const joined = await knex("weekly-programs")
+        .select('*');
+        res.json(joined)
+    } catch(error){
+        res.status(500).json({
+            message: `Unable to get weekly programs : ${error}`
+        });
+    }
+}
+
 const index = async (_req, res) => {
     try {
         const data = await knex('programs');
@@ -9,128 +23,60 @@ const index = async (_req, res) => {
     }
 }
 
-const search = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const data = await knex('warehouses').where({ id }).first();
-        if (data) {
-            res.status(200).json(data);
-        } else {
-            res.status(404).json({ error: 'Warehouse was not found' });
-        }
-    } catch (error) {
-        res.status(400).send(`Error retrieving warehouse: ${error}`);
-    }
-};
 
+const editWeekly = async (req, res) => {
 
-const add = async (req, res) => {
-    try {
-        const { warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email } = req.body;
-        if (!warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
-            return res.status(400).json({ error: "Please fill in all required fields" });
-        } else if (!isValidPhoneNumber(contact_phone)) {
-            return res.status(400).json({ error: "Invalid phone number" });
-        } else if (!isValidEmail(contact_email)) {
-            return res.status(400).json({ error: "Invalid email" });
-        } else {
-            const result = await knex('warehouses').insert(req.body);
-
-            const newWarehouseId = result[0];
-            const createdWarehouse = await knex("warehouses").where({ id: newWarehouseId });
-            res.status(201).json(createdWarehouse);
-        }
-    } catch (error) {
+    const {program_id, week1, week2, week3, week4} = req.body ;
+    try{
+        await knex("programs--weekly-programs").where({ "program_id": program_id}).del()
+        const newEntry = await knex("programs--weekly-programs")
+        .insert([
+            {"program_id": program_id,
+            "weekly-program_id":week1},
+            {"program_id": program_id,
+            "weekly-program_id":week2},
+            {"program_id": program_id,
+            "weekly-program_id":week3},
+            {"program_id": program_id,
+            "weekly-program_id":week4},
+        ])
+        res.send('successfully updated program').status(201);
+    } catch(error){
         res.status(500).json({
-            message: `Can't create new warehouse: ${error.message}`
-        })
-    }
-    function isValidPhoneNumber(phoneNumber) {
-        const phoneRegex = /^\+?1?\s*(\(\d{3}\)|\d{3})[\s-]*\d{3}[\s-]*\d{4}$/;
-        return phoneRegex.test(phoneNumber);
-    }
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+            message: `Unable to update weekly programs for program with id ${program_id_id} : ${error}`
+        });
     }
 }
 
-const edit = async (req, res) => {
-    const { id } = req.params;
-    const { warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email } = req.body;
+const editDaily = async (req, res) => {
 
-    if (!warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
-        return res.status(400).json({ error: "All fields are required" });
-    }
+    const {weeklyProgram_id, day1, day2, day3, day4,day5,day6,day7} = req.body ;
 
-    const isValidPhoneNumber = (phoneNumber) => {
-        const phoneRegex = /^\+?1?\s*(\(\d{3}\)|\d{3})[\s-]*\d{3}[\s-]*\d{4}$/;
-        return phoneRegex.test(phoneNumber);
-    };
+    const array = [day1, day2, day3, day4,day5,day6,day7]
+    const filteredArr = array.filter((day)=> day)
 
-    if (!isValidPhoneNumber(contact_phone)) {
-        return res.status(400).json({ error: "Invalid phone number" });
-    }
-
-    const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
-    if (!isValidEmail(contact_email)) {
-        return res.status(400).json({ error: "Invalid email" });
-    }
-
-    try {
-        const updatedRows = await knex('warehouses')
-            .where({ id })
-            .update({
-                warehouse_name,
-                address,
-                city,
-                country,
-                contact_name,
-                contact_position,
-                contact_phone,
-                contact_email
-            });
-
-        if (updatedRows) {
-            const updatedWarehouse = await knex('warehouses').where({ id }).first();
-            res.status(200).json(updatedWarehouse);
-        } else {
-            res.status(404).json({ error: `Cannot find a warehouse with the ID ${id}` });
+    const result = filteredArr.map((dailyWorkout)=>{
+     return   {"weekly-program_id":weeklyProgram_id,
+            "daily-workout_id": dailyWorkout
         }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: `sorry coudn't update ${id}:${error}` });
-    }
-};
-
-const remove = async (req, res) => {
-    try {
-        const deletedInventories = await knex('inventories')
-            .where({ warehouse_id: req.params.id })
-            .del();
-
-        const deleteWarehouse = await knex('warehouses')
-            .where({ id: req.params.id })
-            .del();
-
-        if (deleteWarehouse === 0) {
-            return res.status(404).json({
-                message: `Unable to remove Warehouse because it does not exist`
-            });
-        }
-        else {
-            res.sendStatus(204)
-        }
-    } catch (error) {
+    })
+    console.log(result);
+    try{
+        await knex("weekly-program--daily-workout").where({ "weekly-program_id": weeklyProgram_id}).del()
+        const newEntry = await knex("weekly-program--daily-workout")
+        .insert(result)
+        res.send('successfully updated weekly program').status(201);
+    } catch(error){
         res.status(500).json({
-            message: `Unable to remove Warehouse: ${error.message}`
+            message: `Unable to update daily workouts for program with id ${weeklyProgram_id} : ${error}`
         });
     }
-};
+}
+
+
+
+
+
 
 const inventory = async (req, res) => {
     try {
@@ -159,17 +105,19 @@ const getWeeks = async (req, res) => {
         res.json( joined);
     } catch(error){
         res.status(500).json({
-            message: `Unable to get weekly programs : ${error}`
+            message: `Unable to get weekly programs for program with id ${id} : ${error}`
         });
     }
 }
 
+
+
+
 module.exports = {
     index,
     getWeeks,
-    search,
-    add,
-    edit,
-    remove,
+    getWeeklyProgram,
+    editWeekly,
+    editDaily,
     inventory
 };
