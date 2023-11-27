@@ -1,3 +1,5 @@
+const { request } = require('express');
+
 const knex = require('knex')(require('../knexfile'));
 
 
@@ -31,13 +33,18 @@ const index = async (req, res) => {
     }
 
 const addExercise = async (req, res) =>{
+
+    const {dailyWorkout_id, exercise_id} = req.body
+    console.log(dailyWorkout_id, exercise_id)
     try{
-        const postedExercise = await knex('daily-workouts').insert(
+        const postedExercise = await knex('exercises--daily-workout').insert(
             {
-                "daily-workout_id": 1,
-                "exercise_id": 1,
+                "daily-workout_id": dailyWorkout_id,
+                "exercise_id": exercise_id,
               }
         )
+        const response = await knex('daily-workouts').where({ 'id': dailyWorkout_id })
+        res.json(response).status(201)
     } catch(error){
         
     }
