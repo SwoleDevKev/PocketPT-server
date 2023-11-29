@@ -7,6 +7,11 @@ router
     .route('/')
     .get(workoutController.getAll)
     .post(workoutController.addExercise)
+    
+router
+    .route('/:exerciseId')
+    .delete(workoutController.remove)
+    
 
 router
     .route('/:id')

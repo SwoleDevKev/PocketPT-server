@@ -4,6 +4,7 @@
  */
 exports.up = function(knex) {
     return knex.schema.createTable('exercises--daily-workout', (table) => {
+        table.increments('id').primary();
         table.integer('exercise_id').unsigned().references('exercises.id');
         table.integer('daily-workout_id').unsigned().references('daily-workouts.id');
       })

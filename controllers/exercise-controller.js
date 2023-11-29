@@ -9,22 +9,18 @@ const index = async (_req, res) => {
     res.status(400).send(`Error retrieving inventory: ${error}`)
   }
 }
-const find = async (req, res) => {
+const getDailyExercises = async (req, res) => {
   const { id } = req.params;
-  try {
-    const data = await knex('inventories')
-      .join('warehouses', 'inventories.warehouse_id', 'warehouses.id')
-      .select('inventories.*', 'warehouses.warehouse_name')
-      .where('inventories.id', id)
-      .first();
-    if (data) {
-      res.status(200).json(data);
-    } else {
-      res.status(404).json({ error: 'Inventory item not found' });
-    }
-  } catch (error) {
-    res.status(400).send(`Error retrieving inventory: ${error}`);
-  }
+  try{
+    const joined = await knex("exercises")
+    .join("exercises--daily-workout","exercises.id","exercises--daily-workout.exercise_id")
+    .join("daily-workouts","daily-workouts.id","exercises--daily-workout.daily-workout_id")
+    .select('*','exercises--daily-workout.*')
+    .where({ 'daily-workout_id': id })
+    res.json( joined);
+} catch(error){
+  res.status(400).send(`Error retrieving exercises for workout with id : ${id} ${error}`);
+}
 };
 
 const update = async (req, res) => {
@@ -131,7 +127,7 @@ module.exports = {
   update,
   index,
   getSome,
-  find,
+  getDailyExercises,
   remove,
   add
 }

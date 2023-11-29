@@ -50,10 +50,25 @@ const addExercise = async (req, res) =>{
     }
 }
 
+const removeExercise = async (req, res) =>{
+
+    const {workoutId, exerciseId} = req.params
+    console.log(req.params)
+    try{
+        const removedExercise = await knex('exercises--daily-workout').where({  "id": exerciseId,
+    }).limit(1).del()
+        
+        res.send(`successfully removed exercise with id ${exercise_id}`).status(204)
+    } catch(error){
+        res.send(error).status(500)
+    }
+}
+
 
 
 module.exports = {
     index,
     addExercise,
+    remove: removeExercise,
     getAll
   }
