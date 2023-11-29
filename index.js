@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8083;
 
 app.use(cors())
 app.use(express.json());
+app.use(express.static('public'))
 
 app.use("/api/clients", userRoutes)
 app.use("/api/trainers", trainerUserRoutes)
@@ -28,20 +29,7 @@ app.use('/api/exercises', exerciseRoutes);
 
 
 
-  // get weekly programs for a specific program 
-  app.get('/test-join3', async (req, res) => {
-    try{
-        const joined = await knex("weekly-programs")
-        .join("programs--weekly-programs","weekly-programs.id","programs--weekly-programs.weekly-program_id")
-        .join("programs","programs.id","programs--weekly-programs.program_id")
-        .select('*')
-        .where({ 'program_id': 1 })
-        res.json( joined);
-    } catch(error){
 
-    }
-    
-  });
 
   //programs--weekly-programs
 
