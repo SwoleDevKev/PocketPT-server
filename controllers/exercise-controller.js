@@ -6,7 +6,7 @@ const index = async (_req, res) => {
       .select('*');
     res.status(200).json(data);
   } catch (error) {
-    res.status(400).send(`Error retrieving inventory: ${error}`)
+    res.status(400).send(`Error retrieving exercises: ${error}`)
   }
 }
 const getDailyExercises = async (req, res) => {
