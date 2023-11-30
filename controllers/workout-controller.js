@@ -35,7 +35,6 @@ const index = async (req, res) => {
 const addExercise = async (req, res) =>{
 
     const {dailyWorkout_id, exercise_id} = req.body
-    console.log(dailyWorkout_id, exercise_id)
     try{
         const postedExercise = await knex('exercises--daily-workout').insert(
             {

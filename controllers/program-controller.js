@@ -60,7 +60,6 @@ const editDaily = async (req, res) => {
             "daily-workout_id": dailyWorkout
         }
     })
-    console.log(result);
     try{
         await knex("weekly-program--daily-workout").where({ "weekly-program_id": weeklyProgram_id}).del()
         const newEntry = await knex("weekly-program--daily-workout")
@@ -75,22 +74,6 @@ const editDaily = async (req, res) => {
 
 
 
-
-
-
-const inventory = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const data = await knex('inventories').where({ warehouse_id: id });
-        if (data.length === 0) {
-            return res.status(404).json({ error: "No inventory found" });
-        } else {
-            res.status(200).json(data);
-        }
-    } catch (error) {
-        res.status(400).send(`Error retrieving inventories: ${error}`);
-    }
-};
 
 
 const getWeeks = async (req, res) => {
@@ -119,5 +102,5 @@ module.exports = {
     getWeeklyProgram,
     editWeekly,
     editDaily,
-    inventory
+    
 };
