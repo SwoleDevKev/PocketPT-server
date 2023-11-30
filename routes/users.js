@@ -25,7 +25,6 @@ router.post("/register", async (req, res) => {
         trainer_id,
         password: hashedPassword
     };
-    console.log('made it this far');
 
     // Insert it into our database
     try {
