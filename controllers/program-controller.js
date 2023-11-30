@@ -19,7 +19,7 @@ const index = async (_req, res) => {
         const data = await knex('programs');
         res.status(200).json(data);
     } catch (error) {
-        res.status(400).send(`Error retrieving warehouse: ${error}`)
+        res.status(400).send(`Error retrieving programs: ${error}`)
     }
 }
 

@@ -24,15 +24,6 @@ app.use('/api/workouts', workoutRoutes);
 app.use('/api/exercises', exerciseRoutes);
 
 
-
-
-
-
-
-
-
-  //programs--weekly-programs
-
     
 app.listen(PORT, () => {
     console.log(`Server is running! at http://localhost:${PORT}`);
