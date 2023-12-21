@@ -40,12 +40,11 @@ router.post("/register", async (req, res) => {
 // -   Expected body: { email, password }
 // -   Response format: { token: "JWT_TOKEN_HERE" }
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
 
+    const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).send("Please enter the required fields");
     }
-
     // Find the user
     const user = await knex('trainers').where({ email: email }).first();
     if (!user) {
