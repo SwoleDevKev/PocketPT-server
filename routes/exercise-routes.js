@@ -8,19 +8,12 @@ router
     .route('/')
     .get(exerciseController.index)
     .get(exerciseController.getSome)
-    .post(exerciseController.add)
 
-// ******GET ALL Exercise or Post a Single Exercise******
-router
-    .route('/client/:id')
-    .get(exerciseController.getSome)
-    
+  
 // ******GET/PUT/DELETE API FOR A SINGLE Exercise ITEM******
 router
     .route('/:id')
-    .get(exerciseController.find)
-    .delete(exerciseController.remove)
-    .put(exerciseController.update)
+    .get(exerciseController.getDailyExercises)
     
 
 
