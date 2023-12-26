@@ -34,15 +34,15 @@ const index = async (req, res) => {
 
 const addExercise = async (req, res) =>{
 
-    const {dailyWorkout_id, exercise_id} = req.body
+    const {daily_workout_id, exercise_id} = req.body
     try{
-        const postedExercise = await knex('exercises--daily-workout').insert(
+        const postedExercise = await knex('exercises--custom_daily_workouts').insert(
             {
-                "daily-workout_id": dailyWorkout_id,
-                "exercise_id": exercise_id,
+                daily_workout_id ,
+                exercise_id,
               }
         )
-        const response = await knex('daily-workouts').where({ 'id': dailyWorkout_id })
+        const response = await knex('daily-workouts').where({ 'id': daily_workout_id })
         res.json(response).status(201)
     } catch(error){
         res.status(400).send(`Error retrieving daily workouts: ${error}`)
@@ -87,7 +87,7 @@ const removeExercise = async (req, res) =>{
     const {workoutId, exerciseId} = req.params
     console.log(req.params)
     try{
-        const removedExercise = await knex('exercises--daily-workout').where({  "id": exerciseId,
+        const removedExercise = await knex('exercises--custom_daily_workouts').where({  "id": exerciseId,
     }).limit(1).del()
         
         res.send(`successfully removed exercise with id ${exercise_id}`).status(204)
