@@ -12,6 +12,21 @@ const getWeeklyProgram = async (req, res) => {
             message: `Unable to get weekly programs : ${error}`
         });
     }
+} 
+
+const getCustomWeeklyProgram = async (req, res) => {
+    
+    const {id} = req.params
+    try{
+        const joined = await knex("custom_weekly_program")
+        .where({"trainer_id":id})
+        .select('*');
+        res.json(joined)
+    } catch(error){
+        res.status(500).json({
+            message: `Unable to get weekly programs : ${error}`
+        });
+    }
 }
 
 const index = async (_req, res) => {
@@ -73,7 +88,29 @@ const editDaily = async (req, res) => {
 }
 
 
+const addWeekly = async (req, res) => {
 
+        const {weekly_program_name, weekly_program_details, trainer_id} = req.body;
+
+        if (weekly_program_name && weekly_program_details && trainer_id){
+            try{
+                const newWorkout = await knex('custom_weekly_program').insert(
+                    {
+                        trainer_id,
+                        weekly_program_name,
+                        weekly_program_details
+                      }
+                )
+          
+              const newWorkoutId = newWorkout[0];
+              const createdWorkout = await knex('custom_weekly_program').where({ 'id': newWorkoutId })
+                res.json(createdWorkout).status(201)
+            } catch(error){
+                res.status(400).send(`Error retrieving daily workouts: ${error}`)
+            }
+        } else res.status(400).send('all fields must be entered as requested')
+
+}
 
 
 const getWeeks = async (req, res) => {
@@ -100,7 +137,9 @@ module.exports = {
     index,
     getWeeks,
     getWeeklyProgram,
+    getCustomWeeklyProgram,
     editWeekly,
+    addWeekly,
     editDaily,
     
 };

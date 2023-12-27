@@ -3,13 +3,20 @@ const router = express.Router();
 const exerciseController = require ('../controllers/exercise-controller')
 
 
-// ******GET ALL Exercise or Post a Single Exercise******
+// ******GET ALL or Specific Exercises ******
 router
     .route('/')
     .get(exerciseController.index)
     .get(exerciseController.getSome)
 
   
+// ******GET ALL or Specific custom Exercises ******
+
+router
+    .route('/custom/:id')
+    .get(exerciseController.allCustom)
+
+
 // ******GET/PUT/DELETE API FOR A SINGLE Exercise ITEM******
 router
     .route('/:id')

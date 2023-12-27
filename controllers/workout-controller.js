@@ -34,18 +34,54 @@ const index = async (req, res) => {
 
 const addExercise = async (req, res) =>{
 
-    const {dailyWorkout_id, exercise_id} = req.body
+    const {daily_workout_id, exercise_id} = req.body
     try{
-        const postedExercise = await knex('exercises--daily-workout').insert(
+        const postedExercise = await knex('exercises--custom_daily_workouts').insert(
             {
-                "daily-workout_id": dailyWorkout_id,
-                "exercise_id": exercise_id,
+                daily_workout_id ,
+                exercise_id,
               }
         )
-        const response = await knex('daily-workouts').where({ 'id': dailyWorkout_id })
+        const response = await knex('daily-workouts').where({ 'id': daily_workout_id })
         res.json(response).status(201)
     } catch(error){
-        
+        res.status(400).send(`Error retrieving daily workouts: ${error}`)
+    }
+}
+
+const addCustomWorkout = async (req, res) =>{
+
+    const {dailyWorkout_name, dailyWorkout_details, trainer_id} = req.body;
+    console.log(dailyWorkout_details, dailyWorkout_name, trainer_id)
+    if (dailyWorkout_name && dailyWorkout_details && trainer_id){
+        try{
+            const newWorkout = await knex('custom_daily_workouts').insert(
+                {
+                    trainer_id,
+                    "daily-workout_name": dailyWorkout_name,
+                    "daily-workout_details": dailyWorkout_details,
+                  }
+            )
+      
+          const newWorkoutId = newWorkout[0];
+          const createdWorkout = await knex('custom_daily_workouts').where({ 'id': newWorkoutId })
+            res.json(createdWorkout).status(201)
+        } catch(error){
+            res.status(400).send(`Error retrieving daily workouts: ${error}`)
+        }
+    } else res.status(400).send('all fields must be entered as requested')
+    
+}
+
+const getCustom = async (req, res) => {
+
+    const {trainer_id} = req.params
+
+    try {
+        const data = await knex('custom_daily_workouts').where({ trainer_id });
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).send(`Error retrieving daily workouts: ${error}`)
     }
 }
 
@@ -54,7 +90,7 @@ const removeExercise = async (req, res) =>{
     const {workoutId, exerciseId} = req.params
     console.log(req.params)
     try{
-        const removedExercise = await knex('exercises--daily-workout').where({  "id": exerciseId,
+        const removedExercise = await knex('exercises--custom_daily_workouts').where({  "id": exerciseId,
     }).limit(1).del()
         
         res.send(`successfully removed exercise with id ${exercise_id}`).status(204)
@@ -66,6 +102,8 @@ const removeExercise = async (req, res) =>{
 
 
 module.exports = {
+    getCustom,
+    addCustomWorkout,
     index,
     addExercise,
     remove: removeExercise,
