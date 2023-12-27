@@ -74,8 +74,11 @@ const addCustomWorkout = async (req, res) =>{
 }
 
 const getCustom = async (req, res) => {
+
+    const {trainer_id} = req.params
+
     try {
-        const data = await knex('custom_daily_workouts');
+        const data = await knex('custom_daily_workouts').where({ trainer_id });
         res.status(200).json(data);
     } catch (error) {
         res.status(400).send(`Error retrieving daily workouts: ${error}`)

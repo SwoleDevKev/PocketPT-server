@@ -6,7 +6,12 @@ const workoutController = require ('../controllers/workout-controller')
 router
     .route('/new')
     .post(workoutController.addCustomWorkout)
+
+
+router
+    .route('/new/:trainer_id')
     .get(workoutController.getCustom)
+
 
 
 router
