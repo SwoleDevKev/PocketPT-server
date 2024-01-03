@@ -8,7 +8,7 @@ router
     .post(workoutController.addCustomWorkout)
 
 router
-    .route('/custom/:day/:id')
+    .route('/custom/:id')
     .get(workoutController.getWorkout)
 
 

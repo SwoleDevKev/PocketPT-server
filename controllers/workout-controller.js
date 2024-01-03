@@ -23,22 +23,60 @@ const index = async (req, res) => {
     }
 
 const getWorkout = async (req, res) => {
-        const {day,id} = req.params ;
+        const {id} = req.params ;
+
+       const test = await knex("custom_weekly_program")
+        .where({ 'custom_weekly_program.id': id })
+        .select('monday','tuesday','wednesday','thursday','friday','saturday','sunday')
+        console.log(test)
+
         
-        try{
-            const joined = await knex("daily-workouts")
-                .join('custom_weekly_program','daily-workouts.id',`custom_weekly_program.${day}`)
-                .select('*')
-                .where({ 'custom_weekly_program.id': id })
-                res.json( joined);
-      
-            }catch (error){
-                res.status(500).json({
-                    message: `Can't get workouts for this program: ${error}`
-                  })
-            };
-    
+        try {
+            const result = []
+            const object = test[0]
+
+                for (key in object){
+                    if (object[key]){
+                        try{
+                            const joined = await knex("custom_daily_workouts")
+                                .join('custom_weekly_program','custom_daily_workouts.id',`custom_weekly_program.${key}`)
+                                .select('custom_daily_workouts.*')
+                                .where({ 'custom_weekly_program.id': id })
+                                joined[0].day = key
+                                result.push(joined[0]);
+                      
+                            }catch (error){
+                                res.status(500).json({
+                                    message: `Can't get workouts for this program: ${error}`
+                                  })
+                            };
+                    
+                        }
+                    }
+            res.json(result)
+        } catch (error) {
+            res.status(500).json({
+                message: `Can't get workouts for this program: ${error}`
+              })
         }
+    
+    }   
+        
+        
+        // try{
+        //     const joined = await knex("custom_daily_workouts")
+        //         .join('custom_weekly_program','custom_daily_workouts.id',`custom_weekly_program.${day}`)
+        //         .select('custom_daily_workouts.*','custom_weekly_program.*')
+        //         .where({ 'custom_weekly_program.id': id })
+        //         res.json( joined);
+      
+        //     }catch (error){
+        //         res.status(500).json({
+        //             message: `Can't get workouts for this program: ${error}`
+        //           })
+        //     };
+    
+        // }
 
 const getAll = async (_req, res) => {
     try {
