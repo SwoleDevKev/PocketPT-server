@@ -1,4 +1,3 @@
-const { request } = require('express');
 
 const knex = require('knex')(require('../knexfile'));
 
@@ -23,26 +22,82 @@ const index = async (req, res) => {
 
     }
 
-    const getAll = async (_req, res) => {
+const getWorkout = async (req, res) => {
+        const {id} = req.params ;
+
+       const test = await knex("custom_weekly_program")
+        .where({ 'custom_weekly_program.id': id })
+        .select('monday','tuesday','wednesday','thursday','friday','saturday','sunday')
+        console.log(test)
+
+        
         try {
-            const data = await knex('daily-workouts');
-            res.status(200).json(data);
+            const result = []
+            const object = test[0]
+
+                for (key in object){
+                    if (object[key]){
+                        try{
+                            const joined = await knex("custom_daily_workouts")
+                                .join('custom_weekly_program','custom_daily_workouts.id',`custom_weekly_program.${key}`)
+                                .select('custom_daily_workouts.*')
+                                .where({ 'custom_weekly_program.id': id })
+                                joined[0].day = key
+                                result.push(joined[0]);
+                      
+                            }catch (error){
+                                res.status(500).json({
+                                    message: `Can't get workouts for this program: ${error}`
+                                  })
+                            };
+                    
+                        }
+                    }
+            res.json(result)
         } catch (error) {
-            res.status(400).send(`Error retrieving daily workouts: ${error}`)
+            res.status(500).json({
+                message: `Can't get workouts for this program: ${error}`
+              })
         }
+    
+    }   
+        
+        
+        // try{
+        //     const joined = await knex("custom_daily_workouts")
+        //         .join('custom_weekly_program','custom_daily_workouts.id',`custom_weekly_program.${day}`)
+        //         .select('custom_daily_workouts.*','custom_weekly_program.*')
+        //         .where({ 'custom_weekly_program.id': id })
+        //         res.json( joined);
+      
+        //     }catch (error){
+        //         res.status(500).json({
+        //             message: `Can't get workouts for this program: ${error}`
+        //           })
+        //     };
+    
+        // }
+
+const getAll = async (_req, res) => {
+    try {
+        const data = await knex('daily-workouts');
+        res.status(200).json(data);
+    } catch (error) {
+            res.status(400).send(`Error retrieving daily workouts: ${error}`)
     }
+}
 
 const addExercise = async (req, res) =>{
 
-    const {dailyWorkout_id, exercise_id} = req.body
+    const {daily_workout_id, exercise_id} = req.body
     try{
-        const postedExercise = await knex('exercises--daily-workout').insert(
+        const postedExercise = await knex('exercises--custom_daily_workouts').insert(
             {
-                "daily-workout_id": dailyWorkout_id,
-                "exercise_id": exercise_id,
+                daily_workout_id ,
+                exercise_id,
               }
         )
-        const response = await knex('daily-workouts').where({ 'id': dailyWorkout_id })
+        const response = await knex('daily-workouts').where({ 'id': daily_workout_id })
         res.json(response).status(201)
     } catch(error){
         res.status(400).send(`Error retrieving daily workouts: ${error}`)
@@ -74,8 +129,11 @@ const addCustomWorkout = async (req, res) =>{
 }
 
 const getCustom = async (req, res) => {
+
+    const {trainer_id} = req.params
+
     try {
-        const data = await knex('custom_daily_workouts');
+        const data = await knex('custom_daily_workouts').where({ trainer_id });
         res.status(200).json(data);
     } catch (error) {
         res.status(400).send(`Error retrieving daily workouts: ${error}`)
@@ -87,7 +145,7 @@ const removeExercise = async (req, res) =>{
     const {workoutId, exerciseId} = req.params
     console.log(req.params)
     try{
-        const removedExercise = await knex('exercises--daily-workout').where({  "id": exerciseId,
+        const removedExercise = await knex('exercises--custom_daily_workouts').where({  "id": exerciseId,
     }).limit(1).del()
         
         res.send(`successfully removed exercise with id ${exercise_id}`).status(204)
@@ -100,6 +158,7 @@ const removeExercise = async (req, res) =>{
 
 module.exports = {
     getCustom,
+    getWorkout,
     addCustomWorkout,
     index,
     addExercise,
