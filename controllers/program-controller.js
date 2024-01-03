@@ -14,6 +14,7 @@ const getWeeklyProgram = async (req, res) => {
     }
 } 
 
+
 const getCustomWeeklyProgram = async (req, res) => {
     
     const {id} = req.params
@@ -28,6 +29,7 @@ const getCustomWeeklyProgram = async (req, res) => {
         });
     }
 }
+
 
 const index = async (_req, res) => {
     try {
@@ -70,15 +72,14 @@ const editDaily = async (req, res) => {
     const array = [day1, day2, day3, day4,day5,day6,day7]
     const filteredArr = array.filter((day)=> day)
 
-    const result = filteredArr.map((dailyWorkout)=>{
-     return   {"weekly-program_id":weeklyProgram_id,
-            "daily-workout_id": dailyWorkout
-        }
-    })
+    
     try{
-        await knex("weekly-program--daily-workout").where({ "weekly-program_id": weeklyProgram_id}).del()
-        const newEntry = await knex("weekly-program--daily-workout")
-        .insert(result)
+       const rowsUpdated = await knex("custom_weekly_program").where({ "id": weeklyProgram_id}).update({'monday':day1,'tuesday':day2,"wednesday":day3,'thursday':day4,'friday':day5,'saturday':day6,'sunday':day7})
+       if (rowsUpdated === 0) {
+        return res.status(404).json({
+          message: `program with ID ${weeklyProgram_id} not found`
+        });
+      }
         res.send('successfully updated weekly program').status(201);
     } catch(error){
         res.status(500).json({
@@ -90,13 +91,14 @@ const editDaily = async (req, res) => {
 
 const addWeekly = async (req, res) => {
 
-        const {weekly_program_name, weekly_program_details, trainer_id} = req.body;
+        const {weekly_program_name, weekly_program_details} = req.body;
+        const {id} = req.params
 
-        if (weekly_program_name && weekly_program_details && trainer_id){
+        if (weekly_program_name && weekly_program_details && id){
             try{
                 const newWorkout = await knex('custom_weekly_program').insert(
                     {
-                        trainer_id,
+                        "trainer_id": id,
                         weekly_program_name,
                         weekly_program_details
                       }

@@ -7,6 +7,10 @@ router
     .route('/new')
     .post(workoutController.addCustomWorkout)
 
+router
+    .route('/custom/:day/:id')
+    .get(workoutController.getWorkout)
+
 
 router
     .route('/new/:trainer_id')
@@ -27,6 +31,8 @@ router
 router
     .route('/:id')
     .get(workoutController.index)
+
+
 
 
 

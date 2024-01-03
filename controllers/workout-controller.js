@@ -1,4 +1,3 @@
-const { request } = require('express');
 
 const knex = require('knex')(require('../knexfile'));
 
@@ -23,14 +22,32 @@ const index = async (req, res) => {
 
     }
 
-    const getAll = async (_req, res) => {
-        try {
-            const data = await knex('daily-workouts');
-            res.status(200).json(data);
-        } catch (error) {
-            res.status(400).send(`Error retrieving daily workouts: ${error}`)
+const getWorkout = async (req, res) => {
+        const {day,id} = req.params ;
+        
+        try{
+            const joined = await knex("daily-workouts")
+                .join('custom_weekly_program','daily-workouts.id',`custom_weekly_program.${day}`)
+                .select('*')
+                .where({ 'custom_weekly_program.id': id })
+                res.json( joined);
+      
+            }catch (error){
+                res.status(500).json({
+                    message: `Can't get workouts for this program: ${error}`
+                  })
+            };
+    
         }
+
+const getAll = async (_req, res) => {
+    try {
+        const data = await knex('daily-workouts');
+        res.status(200).json(data);
+    } catch (error) {
+            res.status(400).send(`Error retrieving daily workouts: ${error}`)
     }
+}
 
 const addExercise = async (req, res) =>{
 
@@ -103,6 +120,7 @@ const removeExercise = async (req, res) =>{
 
 module.exports = {
     getCustom,
+    getWorkout,
     addCustomWorkout,
     index,
     addExercise,
