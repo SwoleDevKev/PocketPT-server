@@ -20,7 +20,7 @@ router
 // ******GET/PUT/DELETE API FOR A SINGLE Exercise ITEM******
 router
     .route('/:id')
-    .get(exerciseController.getDailyExercises)
+    // .get(exerciseController.getDailyExercises)
     
 
 
