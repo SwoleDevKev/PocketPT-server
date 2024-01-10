@@ -7,7 +7,6 @@ const exerciseController = require ('../controllers/exercise-controller')
 router
     .route('/')
     .get(exerciseController.index)
-    .get(exerciseController.getSome)
 
   
 // ******GET ALL or Specific custom Exercises ******
@@ -20,7 +19,7 @@ router
 // ******GET/PUT/DELETE API FOR A SINGLE Exercise ITEM******
 router
     .route('/:id')
-    // .get(exerciseController.getDailyExercises)
+    .get(exerciseController.getDailyExercises)
     
 
 
