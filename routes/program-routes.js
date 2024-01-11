@@ -11,6 +11,11 @@ router
     .route("/weekly/custom/:id")
     .get(programControl.getCustomWeeklyProgram)
     .post(programControl.addWeekly)
+
+router
+    .route("/monthly/custom/:id")
+    .get(programControl.getMonthlyProgram)
+    .post(programControl.addMonthly)
  
     
 // ******GET ALL Programs or Create a new Single Program ******
