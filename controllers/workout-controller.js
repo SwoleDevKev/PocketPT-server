@@ -89,12 +89,13 @@ const getAll = async (_req, res) => {
 
 const addExercise = async (req, res) =>{
 
-    const {daily_workout_id, exercise_id} = req.body
+    const {daily_workout_id, exercise_id, trainer_id} = req.body
     try{
         const postedExercise = await knex('exercises--custom_daily_workouts').insert(
             {
                 daily_workout_id ,
                 exercise_id,
+                trainer_id,
               }
         )
         const response = await knex('daily-workouts').where({ 'id': daily_workout_id })

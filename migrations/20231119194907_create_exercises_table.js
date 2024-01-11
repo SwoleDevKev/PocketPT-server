@@ -6,13 +6,6 @@ exports.up = function(knex) {
      
     return knex.schema.createTable('exercises', (table) => {
         table.increments('id').primary();
-        table
-          .integer('program_id')
-          .unsigned()
-          .references('id')
-          .inTable('programs')
-          .onUpdate('CASCADE')
-          .onDelete('CASCADE');
         table.string('exercise_name').notNullable();
         table.string('note').defaultTo('');
         table.integer('reps').notNullable();

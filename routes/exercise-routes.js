@@ -7,7 +7,6 @@ const exerciseController = require ('../controllers/exercise-controller')
 router
     .route('/')
     .get(exerciseController.index)
-    .get(exerciseController.getSome)
 
   
 // ******GET ALL or Specific custom Exercises ******

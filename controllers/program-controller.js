@@ -114,6 +114,31 @@ const addWeekly = async (req, res) => {
 
 }
 
+const addMonthly = async (req, res) => {
+
+    const {program_name, program_details} = req.body;
+    const {id} = req.params
+
+    if (monthly_program_name && monthly_program_details && id){
+        try{
+            const newProgram = await knex('programs').insert(
+                {
+                    "trainer_id": id,
+                    program_name,
+                    program_details
+                  }
+            )
+      
+          const newProgramId = newProgram[0];
+          const createdProgram = await knex('programs').where({ 'id': newProgramId })
+            res.json(createdProgram).status(201)
+        } catch(error){
+            res.status(400).send(`Error retrieving Monthly program: ${error}`)
+        }
+    } else res.status(400).send('all fields must be entered as requested')
+
+}
+
 
 const getWeeks = async (req, res) => {
 
@@ -132,6 +157,9 @@ const getWeeks = async (req, res) => {
     }
 }
 
+const getMonthlyProgram = async (req, res) => {
+
+}
 
 
 
@@ -143,5 +171,7 @@ module.exports = {
     editWeekly,
     addWeekly,
     editDaily,
+    addMonthly,
+    getMonthlyProgram
     
 };
