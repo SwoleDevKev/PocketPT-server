@@ -43,24 +43,25 @@ const index = async (_req, res) => {
 
 const editWeekly = async (req, res) => {
 
-    const {program_id, week1, week2, week3, week4} = req.body ;
+    const {program_id, week_1, week_2, week_3, week_4} = req.body ;
     try{
-        await knex("programs--weekly-programs").where({ "program_id": program_id}).del()
-        const newEntry = await knex("programs--weekly-programs")
-        .insert([
-            {"program_id": program_id,
-            "weekly-program_id":week1},
-            {"program_id": program_id,
-            "weekly-program_id":week2},
-            {"program_id": program_id,
-            "weekly-program_id":week3},
-            {"program_id": program_id,
-            "weekly-program_id":week4},
-        ])
+        const rowsUpdated = await knex("programs").where({ "id": program_id}).update(
+            {
+                week_1,
+                week_2,
+                week_3,
+                week_4
+            }
+        )
+        if (rowsUpdated === 0) {
+            return res.status(404).json({
+              message: `program with ID ${program_id} not found`
+            });
+          }
         res.send('successfully updated program').status(201);
     } catch(error){
         res.status(500).json({
-            message: `Unable to update weekly programs for program with id ${program_id_id} : ${error}`
+            message: `Unable to update weekly programs for program with id ${program_id} : ${error}`
         });
     }
 }
@@ -142,14 +143,31 @@ const addMonthly = async (req, res) => {
 
 const getWeeks = async (req, res) => {
 
+
     const {id} = req.params ;
+    console.log(id);
     try{
-        const joined = await knex("weekly-programs")
-        .join("programs--weekly-programs","weekly-programs.id","programs--weekly-programs.weekly-program_id")
-        .join("programs","programs.id","programs--weekly-programs.program_id")
+
+        const result = []
+
+        const week1 = await knex("programs")
+        .join("custom_weekly_program","custom_weekly_program.id","programs.week_1")
         .select('*')
-        .where({ 'program_id': id })
-        res.json( joined);
+
+        const week2 = await knex("programs")
+        .join("custom_weekly_program","custom_weekly_program.id","programs.week_2")
+        .select('*')
+
+        const week3 = await knex("programs")
+        .join("custom_weekly_program","custom_weekly_program.id","programs.week_2")
+        .select('*')
+
+        const week4 = await knex("programs")
+        .join("custom_weekly_program","custom_weekly_program.id","programs.week_4")
+        .select('*')
+
+        result.push(week1[0],week2[0],week3[0],week4[0])
+        res.json( result);
     } catch(error){
         res.status(500).json({
             message: `Unable to get weekly programs for program with id ${id} : ${error}`

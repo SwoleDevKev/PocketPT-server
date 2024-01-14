@@ -4,20 +4,19 @@
  */
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex('programs--weekly-programs').del();
-  await knex('weekly-programs').del();
-  await knex('weekly-programs').insert([
+  await knex('custom_weekly_program').del();
+  await knex('custom_weekly_program').insert([
     {
       "id":1,
-      "weekly-program_name": 'Beginner Workout',
-      "weekly-program_author": 'Kswole',
-      "weekly-program_details": 'A first week onbarding program for those new to fitness',
+      "trainer_id":1,
+      "weekly_program_name": 'Beginner Workout',
+      "weekly_program_details": 'A first week onbarding program for those new to fitness',
     },
     {
       "id":2,
-      "weekly-program_name": 'stability and balance Training',
-      "weekly-program_author": 'Kswole',
-      "weekly-program_details": 'setting the stage for injury prevention',
+      "trainer_id":1,
+      "weekly_program_name": 'stability and balance Training',
+      "weekly_program_details": 'setting the stage for injury prevention',
     },
   ]);
 };
