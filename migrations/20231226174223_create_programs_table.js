@@ -7,8 +7,7 @@ exports.up = function(knex) {
         table.increments('id').primary();
         table.integer('trainer_id').unsigned().references('trainers.id').notNullable();
         table.string('program_name').notNullable();
-        table.string('program_author').notNullable();
-        table.string('program_details').notNullable();
+        table.string('program_details').nullable();
         table.integer('week_1').unsigned().references('custom_weekly_program.id').nullable();
         table.integer('week_2').unsigned().references('custom_weekly_program.id').nullable();
         table.integer('week_3').unsigned().references('custom_weekly_program.id').nullable();
@@ -23,5 +22,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTable('programs').dropTable('exercises');
+    return knex.schema.dropTable('programs');
 };

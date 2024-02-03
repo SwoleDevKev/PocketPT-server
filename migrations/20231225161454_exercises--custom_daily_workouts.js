@@ -8,6 +8,11 @@ exports.up = function(knex) {
         table.integer('trainer_id').unsigned().references('trainers.id').notNullable();
         table.integer('exercise_id').unsigned().references('exercises.id');
         table.integer('daily_workout_id').unsigned().references('custom_daily_workouts.id');
+        table.integer('reps').nullable();
+        table.integer('sets').nullable();
+        table.integer('weight').nullable();
+        table.string('note').defaultTo('');
+        table.integer('rest_time').nullable()
       })
 };
 
@@ -17,5 +22,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTable('custom_daily_workouts')
+    return knex.schema.dropTable('exercises--custom_daily_workouts')
 };

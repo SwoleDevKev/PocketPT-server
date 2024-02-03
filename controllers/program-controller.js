@@ -95,7 +95,7 @@ const addWeekly = async (req, res) => {
         const {weekly_program_name, weekly_program_details} = req.body;
         const {id} = req.params
 
-        if (weekly_program_name && weekly_program_details && id){
+        if (weekly_program_name && id){
             try{
                 const newWorkout = await knex('custom_weekly_program').insert(
                     {
@@ -120,7 +120,7 @@ const addMonthly = async (req, res) => {
     const {program_name, program_details} = req.body;
     const {id} = req.params
 
-    if (monthly_program_name && monthly_program_details && id){
+    if (program_name && id){
         try{
             const newProgram = await knex('programs').insert(
                 {
@@ -136,7 +136,11 @@ const addMonthly = async (req, res) => {
         } catch(error){
             res.status(400).send(`Error retrieving Monthly program: ${error}`)
         }
-    } else res.status(400).send('all fields must be entered as requested')
+    } else {
+        console.log(program_name, program_details, id);
+        res.status(400).send('Program Name and Trainer ID are required')
+
+}
 
 }
 

@@ -7,7 +7,7 @@ const exerciseController = require ('../controllers/exercise-controller')
 router
     .route('/')
     .get(exerciseController.index)
-
+    .post(exerciseController.addExercise)
   
 // ******GET ALL or Specific custom Exercises ******
 
