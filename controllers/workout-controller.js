@@ -109,7 +109,7 @@ const addCustomWorkout = async (req, res) =>{
 
     const {dailyWorkout_name, dailyWorkout_details, trainer_id} = req.body;
     console.log(dailyWorkout_details, dailyWorkout_name, trainer_id)
-    if (dailyWorkout_name && dailyWorkout_details && trainer_id){
+    if (dailyWorkout_name  && trainer_id){
         try{
             const newWorkout = await knex('custom_daily_workouts').insert(
                 {

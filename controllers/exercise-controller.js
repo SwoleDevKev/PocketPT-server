@@ -39,6 +39,22 @@ const getDailyExercises = async (req, res) => {
 }
 };
 
+const addExercise = async (req,res) => {
+    const {exercise_name, video_link} = req.body;
+
+    try {
+      const newExercise = await knex("exercises").insert({
+        exercise_name,
+        video_link,
+      })
+
+      const newExerciseId = newExercise[0];
+      const createdExercise = await knex('custom_daily_workouts').where({ 'id': newExerciseId })
+        res.json(createdExercise).status(201)
+    }catch(error){
+      res.status(400).send(`Error creating exercise: ${error}`)
+    }
+}
 
 
 
@@ -49,4 +65,5 @@ module.exports = {
   index,
   allCustom,
   getDailyExercises,
+  addExercise,
 }
