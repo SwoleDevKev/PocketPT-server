@@ -11,6 +11,11 @@ router
     .route('/custom/:id')
     .get(workoutController.getWorkout)
 
+router
+    .route('/edit/:id')
+    .get(workoutController.editWorkout)
+
+
 
 router
     .route('/new/:trainer_id')
@@ -20,7 +25,6 @@ router
 
 router
     .route('/')
-    .get(workoutController.getAll)
     .post(workoutController.addExercise)
     
 router
