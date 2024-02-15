@@ -137,7 +137,6 @@ const addMonthly = async (req, res) => {
             res.status(400).send(`Error retrieving Monthly program: ${error}`)
         }
     } else {
-        console.log(program_name, program_details, id);
         res.status(400).send('Program Name and Trainer ID are required')
 
 }
@@ -149,10 +148,12 @@ const getWeeks = async (req, res) => {
 
 
     const {id} = req.params ;
-    console.log(id);
     try{
 
-        const result = []
+        const result = {}
+        const workouts = []
+
+        const program_info = await knex('programs').where({"programs.id": id })
 
         const week1 = await knex("programs")
         .join("custom_weekly_program","custom_weekly_program.id","programs.week_1")
@@ -170,8 +171,12 @@ const getWeeks = async (req, res) => {
         .join("custom_weekly_program","custom_weekly_program.id","programs.week_4")
         .select('*')
 
-        result.push(week1[0],week2[0],week3[0],week4[0])
-        res.json( result);
+
+        workouts.push(week1[0],week2[0],week3[0],week4[0])
+        result.program_info = program_info[0]
+        result.workouts = workouts.filter((workout)=> workout)
+        
+        res.json(result);
     } catch(error){
         res.status(500).json({
             message: `Unable to get weekly programs for program with id ${id} : ${error}`
