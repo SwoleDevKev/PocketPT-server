@@ -40,10 +40,11 @@ const getDailyExercises = async (req, res) => {
 };
 
 const addExercise = async (req,res) => {
-    const {exercise_name, video_link} = req.body;
+    const {trainer_id, exercise_name, video_link} = req.body;
 
     try {
       const newExercise = await knex("exercises").insert({
+        trainer_id,
         exercise_name,
         video_link,
       })
