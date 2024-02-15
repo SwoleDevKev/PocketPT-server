@@ -4,8 +4,16 @@ const workoutController = require ('../controllers/workout-controller')
 
 
 router
+    .route('/')
+    .post(workoutController.addExercise)
+
+router
     .route('/new')
     .post(workoutController.addCustomWorkout)
+
+router
+    .route('/new/:trainer_id')
+    .get(workoutController.getCustom)
 
 router
     .route('/custom/:id')
@@ -17,24 +25,14 @@ router
 
 
 
-router
-    .route('/new/:trainer_id')
-    .get(workoutController.getCustom)
 
 
-
-router
-    .route('/')
-    .post(workoutController.addExercise)
     
 router
     .route('/:exerciseId')
     .delete(workoutController.remove)
     
 
-router
-    .route('/:id')
-    .get(workoutController.index)
 
 
 
