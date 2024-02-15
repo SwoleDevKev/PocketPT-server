@@ -4,7 +4,6 @@
  */
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex('custom_weekly_program').del();
   await knex('custom_weekly_program').insert([
     {
       "id":1,
