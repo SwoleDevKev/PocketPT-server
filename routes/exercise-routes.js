@@ -20,6 +20,7 @@ router
 router
     .route('/:id')
     .get(exerciseController.getDailyExercises)
+    .put(exerciseController.editExerciseDetails)
     
 
 
