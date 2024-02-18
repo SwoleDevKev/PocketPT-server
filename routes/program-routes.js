@@ -8,13 +8,17 @@ router
     .put(programControl.editDaily)
 
 router
+    .route("/weekly/:id")
+    .get(programControl.getWeeks)
+
+router
     .route("/weekly/custom/:id")
     .get(programControl.getCustomWeeklyProgram)
     .post(programControl.addWeekly)
 
 router
     .route("/monthly/custom/:id")
-    .get(programControl.getMonthlyProgram)
+    // .get(programControl.getMonthlyProgram)
     .post(programControl.addMonthly)
  
     
