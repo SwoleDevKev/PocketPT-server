@@ -57,7 +57,24 @@ const addExercise = async (req,res) => {
     }
 }
 
+const editExerciseDetails = async (req, res) => {
+   const {id} = req.params
+   const {sets,reps,weigth,rest,note} = req.body 
 
+   try {
+      const rowsUpdated = await knex('exercises--custom_daily_workouts').where({id}).update({reps,sets,weigth,rest_time: rest,note})
+      
+      if (rowsUpdated == 0){
+        return res.status(404).json({
+          message: `exercise with ID ${id} not found`
+        });
+      }
+     const updatedExercise =  await knex('exercises--custom_daily_workouts').where({id})
+     res.status(201).json(updatedExercise)
+   } catch(error){
+      res.status(400).json({ message: `Error updating exercise: ${error}` })
+   }
+}
 
 
 
@@ -67,4 +84,5 @@ module.exports = {
   allCustom,
   getDailyExercises,
   addExercise,
+  editExerciseDetails
 }

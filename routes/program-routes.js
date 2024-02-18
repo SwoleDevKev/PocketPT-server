@@ -18,7 +18,6 @@ router
 
 router
     .route("/monthly/custom/:id")
-    // .get(programControl.getMonthlyProgram)
     .post(programControl.addMonthly)
  
     
