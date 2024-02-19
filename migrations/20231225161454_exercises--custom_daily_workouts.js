@@ -8,11 +8,11 @@ exports.up = function(knex) {
         table.integer('trainer_id').unsigned().references('trainers.id').notNullable();
         table.integer('exercise_id').unsigned().references('exercises.id');
         table.integer('daily_workout_id').unsigned().references('custom_daily_workouts.id');
-        table.string('reps').nullable();
-        table.string('sets').nullable();
-        table.string('weight').nullable();
+        table.string('reps').defaultTo('')
+        table.string('sets').defaultTo('')
+        table.string('weight').defaultTo('')
         table.string('note').defaultTo('');
-        table.string('rest_time').nullable()
+        table.string('rest_time').defaultTo('')
       })
 };
 
