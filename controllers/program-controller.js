@@ -47,10 +47,10 @@ const editWeekly = async (req, res) => {
     try{
         const rowsUpdated = await knex("programs").where({ "id": program_id}).update(
             {
-                week_1,
-                week_2,
-                week_3,
-                week_4
+                week_1 : week_1 || null,
+                week_2: week_2 || null,
+                week_3: week_3 || null,
+                week_4: week_4 || null
             }
         )
         if (rowsUpdated === 0) {
@@ -58,7 +58,7 @@ const editWeekly = async (req, res) => {
               message: `program with ID ${program_id} not found`
             });
           }
-        const updatedProgram = await knex('programs').where({id})
+        const updatedProgram = await knex('programs').where({id:program_id})
         res.status(201).json(updatedProgram);
     } catch(error){
         res.status(500).json({
@@ -72,11 +72,15 @@ const editDaily = async (req, res) => {
     const {weeklyProgram_id, day1, day2, day3, day4,day5,day6,day7} = req.body ;
 
     const array = [day1, day2, day3, day4,day5,day6,day7]
-    const filteredArr = array.filter((day)=> day)
+    for (let i = 0; i < array.length; i++){
+        if (!array[i]){
+           array[i] = null
+        }
+     }
 
     
     try{
-       const rowsUpdated = await knex("custom_weekly_program").where({ "id": weeklyProgram_id}).update({'monday':day1,'tuesday':day2,"wednesday":day3,'thursday':day4,'friday':day5,'saturday':day6,'sunday':day7})
+       const rowsUpdated = await knex("custom_weekly_program").where({ "id": weeklyProgram_id}).update({'monday':array[0],'tuesday':array[1],"wednesday":array[2],'thursday':array[3],'friday':array[4],'saturday':array[5],'sunday':array[6]})
        if (rowsUpdated === 0) {
         return res.status(404).json({
           message: `program with ID ${weeklyProgram_id} not found`

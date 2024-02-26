@@ -13,7 +13,7 @@ router
 
 router
     .route('/custom/:id')
-    .get(exerciseController.allCustom)
+    .get(exerciseController.getDailyExercises)
 
 
 // ******GET/PUT/DELETE API FOR A SINGLE Exercise ITEM******

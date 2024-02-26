@@ -8,7 +8,6 @@ const getWorkout = async (req, res) => {
        const test = await knex("custom_weekly_program")
         .where({ 'custom_weekly_program.id': id })
         .select('monday','tuesday','wednesday','thursday','friday','saturday','sunday')
-        console.log('Get Workout :' ,test)
 
         
         try {
@@ -72,7 +71,6 @@ const addExercise = async (req, res) =>{
 const addCustomWorkout = async (req, res) =>{
 
     const {dailyWorkout_name, dailyWorkout_details, trainer_id} = req.body;
-    console.log(dailyWorkout_details, dailyWorkout_name, trainer_id)
     if (dailyWorkout_name  && trainer_id){
         try{
             const newWorkout = await knex('custom_daily_workouts').insert(
@@ -107,10 +105,9 @@ const getCustom = async (req, res) => {
 
 const removeExercise = async (req, res) =>{
 
-    const {workoutId, exerciseId} = req.params
-    console.log(req.params)
+    const {exerciseId} = req.params
     try{
-        const removedExercise = await knex('exercises--custom_daily_workouts').where({  "id": exerciseId,
+        await knex('exercises--custom_daily_workouts').where({  "id": exerciseId,
     }).limit(1).del()
         
         res.send(`successfully removed exercise with id ${exerciseId}`).status(204)

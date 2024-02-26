@@ -10,7 +10,7 @@ const index = async (_req, res) => {
   }
 }
 
-const allCustom = async (req, res) => {
+const getDailyExercises = async (req, res) => {
   const { id } = req.params;
   try{
     const joined = await knex("exercises")
@@ -24,20 +24,6 @@ const allCustom = async (req, res) => {
 }
 };
 
-
-const getDailyExercises = async (req, res) => {
-  const { id } = req.params;
-  try{
-    const joined = await knex("exercises")
-    .join("exercises--daily-workout","exercises.id","exercises--daily-workout.exercise_id")
-    .join("daily-workouts","daily-workouts.id","exercises--daily-workout.daily-workout_id")
-    .select('*','exercises--daily-workout.*')
-    .where({ 'daily-workout_id': id })
-    res.json( joined);
-} catch(error){
-  res.status(400).send(`Error retrieving exercises for workout with id : ${id} ${error}`);
-}
-};
 
 const addExercise = async (req,res) => {
     const {trainer_id, exercise_name, video_link} = req.body;
@@ -59,10 +45,9 @@ const addExercise = async (req,res) => {
 
 const editExerciseDetails = async (req, res) => {
    const {id} = req.params
-   const {sets,reps,weigth,rest,note} = req.body 
-
+   const {sets,reps,weight,rest,note} = req.body 
    try {
-      const rowsUpdated = await knex('exercises--custom_daily_workouts').where({id}).update({reps,sets,weigth,rest_time: rest,note})
+      const rowsUpdated = await knex('exercises--custom_daily_workouts').where({id}).update({reps,sets,weight,rest_time: rest,note})
       
       if (rowsUpdated == 0){
         return res.status(404).json({
@@ -81,7 +66,6 @@ const editExerciseDetails = async (req, res) => {
 
 module.exports = {
   index,
-  allCustom,
   getDailyExercises,
   addExercise,
   editExerciseDetails
