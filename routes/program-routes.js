@@ -6,11 +6,19 @@ router
     .route("/weekly")
     .get(programControl.getWeeklyProgram)
     .put(programControl.editDaily)
-    .post(programControl.addWeekly)
+
+router
+    .route("/weekly/:id")
+    .get(programControl.getWeeks)
 
 router
     .route("/weekly/custom/:id")
     .get(programControl.getCustomWeeklyProgram)
+    .post(programControl.addWeekly)
+
+router
+    .route("/monthly/custom/:id")
+    .post(programControl.addMonthly)
  
     
 // ******GET ALL Programs or Create a new Single Program ******

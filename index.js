@@ -4,7 +4,6 @@ const knex = require('knex')(require('./knexfile'));
 const cors = require('cors');
 const programRoutes = require('./routes/program-routes')
 const exerciseRoutes = require('./routes/exercise-routes');
-const mockDataRoutes = require('./routes/mockdata-routes')
 const workoutRoutes = require('./routes/workout-routes')
 const userRoutes = require("./routes/users");
 const trainerUserRoutes = require("./routes/trainerUsers")
@@ -18,7 +17,6 @@ app.use(express.static('public'))
 
 app.use("/api/clients", userRoutes)
 app.use("/api/trainers", trainerUserRoutes)
-app.use('/api/mockData' ,mockDataRoutes)
 app.use('/api/programs', programRoutes);
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/exercises', exerciseRoutes);
