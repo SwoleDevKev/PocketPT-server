@@ -9,6 +9,7 @@ exports.seed = async function (knex) {
 
   const hashedPassword = bcrypt.hashSync('password');
   // Deletes ALL existing entries
+  await knex('exercises--custom_daily_workouts').del()
   await knex ('exercises').del()
   await knex('custom_daily_workouts').del()
   await knex('custom_weekly_program').del()
