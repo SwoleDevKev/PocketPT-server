@@ -4,6 +4,12 @@
  */
 exports.seed = async function(knex) {
     await knex('custom_daily_workouts').del()
+
+    const exists = await knex.schema.hasTable('custom_daily_workouts');
+    if (exists) {
+        await knex('custom_daily_workouts').del();
+    }
+
     await knex('custom_daily_workouts').insert([
         {
             id:1,

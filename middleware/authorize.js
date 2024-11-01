@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     const bearerTokenString = req.headers.authorization;
-
+    console.log("this is running");
     if (!bearerTokenString) {
         return res.status(401).json({error: "Resource requires Bearer token in Authorization header"});
     }
@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
         }
 		delete req.password;
         req.user = decoded;
+        console.log("you are authorized");
         next();
     });
 }

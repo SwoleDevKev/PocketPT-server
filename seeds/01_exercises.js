@@ -3,8 +3,13 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
-  await knex('exercises').del();
+  
+  const exists = await knex.schema.hasTable('exercises');
+    if (exists) {
+      await knex('exercises').del();
+    }
+
+
   await knex('exercises').insert([
     {
       id: 1,
