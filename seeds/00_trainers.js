@@ -8,25 +8,14 @@ const bcrypt = require('bcryptjs');
 exports.seed = async function (knex) {
 
   const hashedPassword = bcrypt.hashSync('password');
-
-  const tables = [
-    'exercises--custom_daily_workouts',
-    'exercises',
-    'custom_daily_workouts',
-    'custom_weekly_program',
-    'programs',
-    'clients',
-    'trainers'
-  ];
-
-  for (const table of tables) {
-    const exists = await knex.schema.hasTable(table);
-    if (exists) {
-      await knex(table).del();
-    }
-  }
-
-
+  // Deletes ALL existing entries
+  await knex('exercises--custom_daily_workouts').del()
+  await knex ('exercises').del()
+  await knex('custom_daily_workouts').del()
+  await knex('custom_weekly_program').del()
+  await knex('programs').del()
+  await knex('clients').del()
+  await knex('trainers').del();
   await knex('trainers').insert([
     {
       id: 1,
