@@ -13,6 +13,7 @@ exports.up = function(knex) {
         table.string('phone');
         table.string('email').notNullable().unique();
         table.string('password').notNullable();
+        table.string('icon').nullable().defaultTo(null);
     });
 };
 

@@ -3,10 +3,12 @@ const knex = require('knex')(require('../knexfile'));
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authorize = require('../middleware/authorize');
+const multer  = require('multer')
+const {S3Client, PutObjectCommand, GetObjectCommand} = require('@aws-sdk/client-s3');
+const {getSignedUrl} = require('@aws-sdk/s3-request-presigner');
 
-// ## POST /api/users/register
-// - Creates a new user.
-// - Expected body: { first_name, last_name, phone, address, email, password }
+const crypto = require('crypto');
+
 router.post("/register", async (req, res) => {
     const { first_name, last_name, phone, email, password, trainer_id } = req.body;
     
@@ -36,10 +38,7 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// ## POST /api/users/login
-// -   Generates and responds a JWT for the user to use for future authorization.
-// -   Expected body: { email, password }
-// -   Response format: { token: "JWT_TOKEN_HERE" }
+
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -70,10 +69,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-// ## GET /api/users/current
-// -   Gets information about the currently logged in user.
-// -   If no valid JWT is provided, this route will respond with 401 Unauthorized.
-// -   Expected headers: { Authorization: "Bearer JWT_TOKEN_HERE" }
+
 router.get('/current', async (req, res) => {
 	if(!req.headers.authorization) {
 		return res.status(401).send('Please login')
@@ -87,6 +83,11 @@ router.get('/current', async (req, res) => {
 
 		const user = await knex('clients').where({id: decoded.id}).first();
 		delete user.password;
+
+        if (user.icon) {
+            const url = await getSignedUrl(S3, new GetObjectCommand({Bucket: process.env.BUCKET_NAME, Key: user.icon}), { expiresIn: 30 })
+            user.icon = url
+        }
 		res.json(user)
 
 	} catch(error) {
@@ -95,7 +96,6 @@ router.get('/current', async (req, res) => {
 })
 
 
-//Demonstrate using auth on a single route
 router.get("/", authorize, async (req, res)=> {
 
     
@@ -113,7 +113,6 @@ router.get("/", authorize, async (req, res)=> {
     const {program_id} = req.body
     try {
         const rowsUpdated = await knex("clients").where({ id: id }).update('program_id', program_id);
-
         if (rowsUpdated === 0) {
             return res.status(404).json({
               message: `client with ID ${id} not found`
@@ -124,9 +123,75 @@ router.get("/", authorize, async (req, res)=> {
           res.json(updatedClient[0]);
     } catch (error){
         res.status(500).json({
-            message: `Unable to update warehouse with ID ${req.params.id}: ${error}`
+            message: `Unable to update client ID ${req.params.id}: ${error}`
           });
     }
+})
+
+
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+
+const bucketName=  process.env.BUCKET_NAME
+const bucketRegion= process.env.BUCKET_REGION
+const accessKey= process.env.AWS_ACCESS_KEY_ID
+const secretaccesskey= process.env.AWS_SECRET_ACCESS_KEY
+
+ 
+const S3 = new S3Client({
+    region: bucketRegion,
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretaccesskey
+    }
+
+})
+
+const randomImageName = () => {
+    return crypto.randomBytes(32).toString('hex')
+}
+
+router.put('/icon', upload.single('icon'), async (req, res) => {
+
+    const {id} = req.body.id;
+    
+
+    const image = req.file.buffer
+    const imageName = randomImageName()
+    const putObject = new PutObjectCommand({
+        Bucket: bucketName,
+        Key: imageName,
+        Body: image,
+        ContentType: req.file.mimetype
+
+    })
+
+    try {
+
+        
+        if (!req.body.id || isNaN(parseInt(req.body.id, 10))) {
+            return res.status(400).send('Invalid user ID');
+        }
+
+        await S3.send(putObject)
+        const rowsUpdated = await knex('users').where({ id }).update({ icon: imageName });
+        if (rowsUpdated === 0) {
+            return res.status(500).send('Could not update user profile picture')
+        }
+        const updatedData = await knex('users')
+        .select('first_name', 'last_name', 'icon')
+        .where({ id })
+        .first();
+
+        res.status(200).json(updatedData);
+        
+
+    } catch (error) {
+        console.error(error)    
+        res.status(500).send('Failed to upload icon')
+    }
+    
+
 })
 
 
