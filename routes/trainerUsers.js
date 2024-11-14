@@ -6,6 +6,9 @@ const authorize = require('../middleware/authorize');
 const multer  = require('multer')
 const {S3Client, PutObjectCommand, GetObjectCommand} = require('@aws-sdk/client-s3');
 const {getSignedUrl} = require('@aws-sdk/s3-request-presigner');
+const crypto = require('crypto');
+const { log } = require("console");
+
 
 
 
@@ -126,7 +129,17 @@ router.get("/:id", authorize, async (req, res)=> {
 		const users = await knex
 		.select("*")
 		.from("clients")
-        .where({ 'trainer_id': id })
+        .where({ 'trainer_id': id });
+
+
+        for (let user of users) {
+            if (user.icon) {
+                const url = await getSignedUrl(S3, new GetObjectCommand({Bucket: process.env.BUCKET_NAME, Key: user.icon}), { expiresIn: 30 })
+                user.icon = url
+        }
+        }
+
+
 		res.json(users);
 	} catch (error) {
 		res.status(500).json({ message: "Unable to retrieve users data" });
@@ -148,7 +161,11 @@ router.get("/", async (req, res)=> {
 
 router.put('/icon', upload.single('icon'), async (req, res) => {
 
-    const {id} = req.body.id;
+    const id = req.body.id;
+
+    if (!req.file) {
+        return res.status(400).send('No file uploaded');
+    }
     
 
     const image = req.file.buffer
@@ -162,7 +179,8 @@ router.put('/icon', upload.single('icon'), async (req, res) => {
     })
 
     try {
-
+        console.log(id, 'id', imageName, 'imageName') ;
+        
         
         if (!req.body.id || isNaN(parseInt(req.body.id, 10))) {
             return res.status(400).send('Invalid user ID');
