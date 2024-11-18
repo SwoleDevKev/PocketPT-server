@@ -13,12 +13,21 @@ exports.seed = async function (knex) {
     {
       id: 1,
       trainer_id: 1,
-      first_name: 'client',
-      last_name: 'Demo',
-      phone: '123-456-7890',
-      email:'clientdemo@gmail.com',
+      first_name: 'Robert',
+      last_name: 'Wisley',
+      phone: '229-944-7863',
+      email:'robertwilsey@gmail.com',
       password: hashedPassword
     },
+    {
+      id: 2,
+      trainer_id: 1,
+      first_name: 'Adam',
+      last_name: 'Fields',
+      phone: '315-462-9349',
+      email:'adamfields@gmail.com',
+      password: hashedPassword
+    }
    
   ]);
 };

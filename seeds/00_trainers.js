@@ -20,9 +20,9 @@ exports.seed = async function (knex) {
     {
       id: 1,
       first_name: 'John',
-      last_name: 'Doe',
-      phone: '999-999-9999',
-      email:'johndoe@gmail.com',
+      last_name: 'Smith',
+      phone: '919-558-3504',
+      email:'johnsmith@gmail.com',
       password: hashedPassword
     },
    
