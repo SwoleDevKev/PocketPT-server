@@ -7,7 +7,6 @@ const multer  = require('multer')
 const {S3Client, PutObjectCommand, GetObjectCommand} = require('@aws-sdk/client-s3');
 const {getSignedUrl} = require('@aws-sdk/s3-request-presigner');
 const crypto = require('crypto');
-const { log } = require("console");
 
 
 
@@ -178,9 +177,7 @@ router.put('/icon', upload.single('icon'), async (req, res) => {
 
     })
 
-    try {
-        console.log(id, 'id', imageName, 'imageName') ;
-        
+    try {        
         
         if (!req.body.id || isNaN(parseInt(req.body.id, 10))) {
             return res.status(400).send('Invalid user ID');
