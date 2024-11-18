@@ -153,7 +153,7 @@ const randomImageName = () => {
 
 router.put('/icon', upload.single('icon'), async (req, res) => {
 
-    const {id} = req.body.id;
+    const id = req.body.id;
     
 
     const image = req.file.buffer
@@ -174,11 +174,11 @@ router.put('/icon', upload.single('icon'), async (req, res) => {
         }
 
         await S3.send(putObject)
-        const rowsUpdated = await knex('users').where({ id }).update({ icon: imageName });
+        const rowsUpdated = await knex('clients').where({ id }).update({ icon: imageName });
         if (rowsUpdated === 0) {
             return res.status(500).send('Could not update user profile picture')
         }
-        const updatedData = await knex('users')
+        const updatedData = await knex('clients')
         .select('first_name', 'last_name', 'icon')
         .where({ id })
         .first();
