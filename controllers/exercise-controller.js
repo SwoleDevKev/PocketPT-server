@@ -26,7 +26,8 @@ const getDailyExercises = async (req, res) => {
 
 
 const addExercise = async (req,res) => {
-    const {trainer_id, exercise_name, video_link} = req.body;
+    const {trainer_id, exercise_name} = req.body;
+    let {video_link} = req.body
 
     video_link = video_link || null;
 
